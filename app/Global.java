@@ -58,6 +58,27 @@ public class Global extends GlobalSettings {
 		si1.addTema(new Tema("Minitestes"));
 		si1.addTema(new Tema("Projeto"));
 		dao.persist(si1);
+
+		Disciplina oac = new Disciplina("OAC - Organização e Arquitetura de Computadores");
+		oac.addTema(new Tema("Conceitos básicos (Revisão IC)"));
+		oac.addTema(new Tema("Organização Básica de Computadores"));
+		oac.addTema(new Tema("Linguagem de Descrição de Hardware"));
+		oac.addTema(new Tema("Circuitos Combinacionais"));
+		oac.addTema(new Tema("Circuitos Sequenciais"));
+		oac.addTema(new Tema("Arquitetura do Conjunto de Instruções"));
+		oac.addTema(new Tema("Organização e Arquitetura Básicas de Computadores"));
+		oac.addTema(new Tema("Exercícios"));
+		dao.persist(oac);
+
+		Disciplina logica = new Disciplina("Lógica Matemática");
+		logica.addTema(new Tema("Lógica Proposicional"));
+		logica.addTema(new Tema("Lógica de Predicados"));
+		logica.addTema(new Tema("Verificação através de Modelos"));
+		logica.addTema(new Tema("Alloy"));
+		logica.addTema(new Tema("Listas"));
+		logica.addTema(new Tema("Projeto"));
+		dao.persist(logica);
+		
 		dao.flush();
 	}
 }
