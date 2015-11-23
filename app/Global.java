@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Disciplina;
-import models.Tema;
+import models.*;
 import models.dao.GenericDAOImpl;
 import play.Application;
 import play.GlobalSettings;
@@ -24,6 +23,7 @@ public class Global extends GlobalSettings {
 			public void invoke() throws Throwable {
 				if(dao.findAllByClassName(Disciplina.class.getName()).size() == 0){
 					criaDisciplinaTemas();
+					addUsers();
 				}
 			}
 		});
@@ -80,5 +80,21 @@ public class Global extends GlobalSettings {
 		dao.persist(logica);
 		
 		dao.flush();
+	}
+
+
+	public void addUsers(){
+
+		for (int id = 1; id <= 10; id++){
+			User user = new User();
+			user.setNome("user"+id);
+			user.setLogin("user"+id);
+			user.setPass("senha"+id);
+			user.setEmail("user"+id+"@email.com");
+		
+			dao.persist(user);
+		}
+		dao.flush();
+
 	}
 }
