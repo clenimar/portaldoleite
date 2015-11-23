@@ -24,6 +24,7 @@ public class Global extends GlobalSettings {
 				if(dao.findAllByClassName(Disciplina.class.getName()).size() == 0){
 					criaDisciplinaTemas();
 					addUsers();
+					addDicas();
 				}
 			}
 		});
@@ -94,6 +95,27 @@ public class Global extends GlobalSettings {
 		
 			dao.persist(user);
 		}
+		dao.flush();
+
+	}
+
+		public void addDicas(){
+		MetaDica metaDicaOac = new MetaDica(oac, "user1", "Faca todos os exercicios extras");
+		metaDicaOac.setConcordancias(5);
+		dao.persist(metaDicaOac);
+
+		MetaDica metaDica2Oac = new MetaDica(oac, "user1", "Não falte nenhuma aula, toda aula tem pontos extras o/ ");
+		dao.persist(metaDica2Oac);
+
+		MetaDica metaDicaSi1 = new MetaDica(si1, "user2", "Seja autodidata!");
+		dao.persist(metaDicaSi1);
+
+		MetaDica metaDicaLogica = new MetaDica(logica, "user3", "Faça todas as listas de exercícios");
+		dao.persist(metaDicaLogica);
+
+		MetaDica metaDica2Logica = new MetaDica(logica, "user3", "Tenha um bom grupo para o projeto!! Faça o projeto");
+		dao.persist(metaDica2Logica);
+
 		dao.flush();
 
 	}
