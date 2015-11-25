@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,10 +39,10 @@ public abstract class Dica implements Comparable<Dica>{
 	private Map<String, String> usersCommentaries;
 	
 	@ElementCollection
-	private List<String> usuariosQueJaVotaram;
+	private List<String> usuariosQueJaVotaram = new ArrayList<String>();
 	
 	@ManyToMany(mappedBy="dicasAdicionadas")
-	private List<MetaDica> metadicas;
+	private List<MetaDica> metadicas = new ArrayList<>();
 	
 	@Column
 	private int concordancias;
@@ -53,7 +54,7 @@ public abstract class Dica implements Comparable<Dica>{
 	private int flag;
 	
 	@ElementCollection
-	private List<String> usuarioqueQueJaDenunciaram;
+	private List<String> usuarioqueQueJaDenunciaram = new ArrayList<String>();
 	
 	@Transient
 	private DicaDisciplina instanciaDisciplina;
