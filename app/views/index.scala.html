@@ -1,4 +1,4 @@
-@(disciplinas: List[Disciplina])
+@(disciplinas: List[Disciplina])(dicas: List[Dica])
 
 <!DOCTYPE html>
 
@@ -55,6 +55,38 @@
             				<hr class="uk-article-divider-orange">
             			</div>
             			<p>Escolha uma disciplina ou tema ao lado para acessar os leites.</p>
+
+
+
+
+						<div class="uk-overflow-container">
+							@if(dicas.isEmpty) {
+								<p>Sem dicas recentes para mostrar.</p>
+							}
+							@for(dica <- dicas){
+								<div class="uk-panel uk-panel-box dica">
+									@if(dica.getTipo().equals("DicaDisciplina")){
+										<p>Disciplinas importantes:</p><p class="normal-font">@dica.getTexto()</p>
+										<p>Razão:</p><p class="normal-font">@dica.getInstanciaDisciplina.getRazao()</p>
+									}
+									@if(dica.getTipo().equals("DicaMaterial")){
+										<p>Link para material útil:</p><a href="@dica.getTexto()">@dica.getTexto()</a>
+									}
+									@if(dica.getTipo().equals("DicaConselho")){
+										<p>Conselho:</p><p class="normal-font">@dica.getTexto()</p>
+									}
+									@if(dica.getTipo().equals("DicaAssunto")){
+										<p>Assuntos importantes:</p><p class="normal-font">@dica.getTexto()</p>
+									}
+								</div>
+								<hr class="uk-article-divider">
+							}
+						</div>
+
+
+
+
+
             		</div>
             	</div>
             </div>

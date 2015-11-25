@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -24,12 +25,13 @@ import play.mvc.Security;
 public class Application extends Controller {
 	private static final int MAX_DENUNCIAS = 3;
 	private static GenericDAOImpl dao = new GenericDAOImpl();
-	
+
 	@Transactional
 	@Security.Authenticated(Secured.class)
     public static Result index() {
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
-        return ok(views.html.index.render(disciplinas));
+		DicaAssunto dica = new DicaAssunto("Olar");
+        return ok(views.html.index.render(disciplinas, getTimeline()));
     }
 	
 	@Transactional
@@ -392,5 +394,11 @@ public class Application extends Controller {
 		dao.flush();
 		
 		return redirect(routes.Application.disciplina(metaDica.getDisciplina().getId()));
+	}
+
+	@Transactional
+	public static List<Dica> getTimeline() {
+		List<Dica> timeline = dao.findAllByClassName("Dica");
+		return timeline;
 	}
 }
