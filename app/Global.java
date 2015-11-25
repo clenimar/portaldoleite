@@ -13,6 +13,9 @@ public class Global extends GlobalSettings {
 
 	private static GenericDAOImpl dao = new GenericDAOImpl();
 	private List<Disciplina> disciplinas = new ArrayList<>();
+
+	//Disciplinas defaut
+	private Disciplina si1, oac, logica;
 	
 	@Override
 	public void onStart(Application app) {
@@ -45,7 +48,7 @@ public class Global extends GlobalSettings {
 	}
 	
 	private void criaDisciplinaTemas(){
-		Disciplina si1 = new Disciplina("Sistemas de Informação 1");
+		this.si1 = new Disciplina("Sistemas de Informação 1");
 		si1.addTema(new Tema("Análise x Design"));
 		si1.addTema(new Tema("Orientação a objetos"));
 		si1.addTema(new Tema("GRASP"));
@@ -60,7 +63,7 @@ public class Global extends GlobalSettings {
 		si1.addTema(new Tema("Projeto"));
 		dao.persist(si1);
 
-		Disciplina oac = new Disciplina("OAC - Organização e Arquitetura de Computadores");
+		this.oac = new Disciplina("OAC");
 		oac.addTema(new Tema("Conceitos básicos (Revisão IC)"));
 		oac.addTema(new Tema("Organização Básica de Computadores"));
 		oac.addTema(new Tema("Linguagem de Descrição de Hardware"));
@@ -71,7 +74,7 @@ public class Global extends GlobalSettings {
 		oac.addTema(new Tema("Exercícios"));
 		dao.persist(oac);
 
-		Disciplina logica = new Disciplina("Lógica Matemática");
+		this.logica = new Disciplina("Lógica Matemática");
 		logica.addTema(new Tema("Lógica Proposicional"));
 		logica.addTema(new Tema("Lógica de Predicados"));
 		logica.addTema(new Tema("Verificação através de Modelos"));
@@ -79,7 +82,12 @@ public class Global extends GlobalSettings {
 		logica.addTema(new Tema("Listas"));
 		logica.addTema(new Tema("Projeto"));
 		dao.persist(logica);
-		
+
+
+
+
+
+
 		dao.flush();
 	}
 
@@ -99,7 +107,7 @@ public class Global extends GlobalSettings {
 
 	}
 
-		public void addDicas(){
+	public void addDicas(){
 		MetaDica metaDicaOac = new MetaDica(oac, "user1", "Faca todos os exercicios extras");
 		metaDicaOac.setConcordancias(5);
 		dao.persist(metaDicaOac);
