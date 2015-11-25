@@ -13,11 +13,7 @@ public class Global extends GlobalSettings {
 
 	private static GenericDAOImpl dao = new GenericDAOImpl();
 	private List<Disciplina> disciplinas = new ArrayList<>();
-
-	private Disciplina si1;
-	private Disciplina oac;
-	private Disciplina logica;
-
+	
 	@Override
 	public void onStart(Application app) {
 		Logger.info("Aplicação inicializada...");
@@ -49,7 +45,7 @@ public class Global extends GlobalSettings {
 	}
 	
 	private void criaDisciplinaTemas(){
-		si1 = new Disciplina("Sistemas de Informação 1");
+		Disciplina si1 = new Disciplina("Sistemas de Informação 1");
 		si1.addTema(new Tema("Análise x Design"));
 		si1.addTema(new Tema("Orientação a objetos"));
 		si1.addTema(new Tema("GRASP"));
@@ -64,7 +60,7 @@ public class Global extends GlobalSettings {
 		si1.addTema(new Tema("Projeto"));
 		dao.persist(si1);
 
-		oac = new Disciplina("OAC - Organização e Arquitetura de Computadores");
+		Disciplina oac = new Disciplina("OAC - Organização e Arquitetura de Computadores");
 		oac.addTema(new Tema("Conceitos básicos (Revisão IC)"));
 		oac.addTema(new Tema("Organização Básica de Computadores"));
 		oac.addTema(new Tema("Linguagem de Descrição de Hardware"));
@@ -75,7 +71,7 @@ public class Global extends GlobalSettings {
 		oac.addTema(new Tema("Exercícios"));
 		dao.persist(oac);
 
-		logica = new Disciplina("Lógica Matemática");
+		Disciplina logica = new Disciplina("Lógica Matemática");
 		logica.addTema(new Tema("Lógica Proposicional"));
 		logica.addTema(new Tema("Lógica de Predicados"));
 		logica.addTema(new Tema("Verificação através de Modelos"));
