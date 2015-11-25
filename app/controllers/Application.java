@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
 import models.Dica;
 import models.DicaAssunto;
 import models.DicaConselho;
@@ -14,6 +15,7 @@ import models.Disciplina;
 import models.MetaDica;
 import models.Tema;
 import models.dao.GenericDAOImpl;
+import org.apache.commons.collections.ListUtils;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -399,6 +401,6 @@ public class Application extends Controller {
 	@Transactional
 	public static List<Dica> getTimeline() {
 		List<Dica> timeline = dao.findAllByClassName("Dica");
-		return timeline;
+		return Lists.reverse(timeline);
 	}
 }
