@@ -14,6 +14,9 @@ public class Global extends GlobalSettings {
 	private static GenericDAOImpl dao = new GenericDAOImpl();
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
+	private Tema temaMinitestesSi, temaPlaySi;
+	private Dica dicaLabSi, dicaPlaySi;
+
 	//Disciplinas defaut
 	private Disciplina si1, oac, logica;
 	
@@ -54,12 +57,12 @@ public class Global extends GlobalSettings {
 		si1.addTema(new Tema("GRASP"));
 		si1.addTema(new Tema("GoF"));
 		si1.addTema(new Tema("Arquitetura"));
-		si1.addTema(new Tema("Play"));
+		si1.addTema(temaPlaySi = new Tema("Play"));
 		si1.addTema(new Tema("JavaScript"));
 		si1.addTema(new Tema("HTML / CSS / Bootstrap"));
 		si1.addTema(new Tema("Heroku"));
 		si1.addTema(new Tema("Labs"));
-		si1.addTema(new Tema("Minitestes"));
+		si1.addTema(temaMinitestesSi = new Tema("Minitestes"));
 		si1.addTema(new Tema("Projeto"));
 		dao.persist(si1);
 
@@ -82,11 +85,6 @@ public class Global extends GlobalSettings {
 		logica.addTema(new Tema("Listas"));
 		logica.addTema(new Tema("Projeto"));
 		dao.persist(logica);
-
-
-
-
-
 
 		dao.flush();
 	}
@@ -112,11 +110,34 @@ public class Global extends GlobalSettings {
 		metaDicaOac.setConcordancias(5);
 		dao.persist(metaDicaOac);
 
+
+		//cria meta dica em si
+		MetaDica metaDicaSi1 = new MetaDica(si1, "user2", "Seja autodidata! Procure por cursos online");
+		dao.persist(metaDicaSi1);
+
+		dicaLabSi = new DicaConselho("Faça todo os labs, não deixe acumular");
+		temaMinitestesSi.setDisciplina(si1);
+		dicaLabSi.setTema(temaMinitestesSi);
+		dicaLabSi.setUser("user1");
+		dicaLabSi.addUsuarioQueVotou("user2");
+		dicaLabSi.addUsuarioQueVotou("user3");
+		dicaLabSi.incrementaConcordancias();
+		dicaLabSi.incrementaConcordancias();
+		dao.persist(dicaLabSi);
+
+		dicaPlaySi = new DicaConselho("Comece a configurar o Play no primeiro dia de aula, pois dá muuuito trabalho");
+		temaPlaySi.setDisciplina(si1);
+		dicaPlaySi.setTema(temaPlaySi);
+		dicaPlaySi.setUser("user2");
+		dicaPlaySi.addUsuarioQueVotou("user5");
+		dicaPlaySi.addUsuarioQueVotou("user4");
+		dicaPlaySi.incrementaConcordancias();
+		dicaPlaySi.incrementaConcordancias();
+		dao.persist(dicaPlaySi);
+
+
 		MetaDica metaDica2Oac = new MetaDica(oac, "user1", "Não falte nenhuma aula, toda aula tem pontos extras o/ ");
 		dao.persist(metaDica2Oac);
-
-		MetaDica metaDicaSi1 = new MetaDica(si1, "user2", "Seja autodidata!");
-		dao.persist(metaDicaSi1);
 
 		MetaDica metaDicaLogica = new MetaDica(logica, "user3", "Faça todas as listas de exercícios");
 		dao.persist(metaDicaLogica);
