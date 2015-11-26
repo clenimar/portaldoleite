@@ -14,8 +14,8 @@ public class Global extends GlobalSettings {
 	private static GenericDAOImpl dao = new GenericDAOImpl();
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
-	private Tema temaMinitestesSi, temaPlaySi;
-	private Dica dicaLabSi, dicaPlaySi;
+	private Tema temaMinitestesSi, temaPlaySi, temaOacRevisaoIC, temaOacExercicios, temaListasLogica, temaProjetoLogica;
+	private Dica dicaLabSi, dicaPlaySi, dicaRevisaoIcOac, dicaExerciciosOac, dicaListasLogica, dicaProjetoLogica;
 
 	//Disciplinas defaut
 	private Disciplina si1, oac, logica;
@@ -67,14 +67,14 @@ public class Global extends GlobalSettings {
 		dao.persist(si1);
 
 		this.oac = new Disciplina("OAC");
-		oac.addTema(new Tema("Conceitos básicos (Revisão IC)"));
+		oac.addTema(temaOacRevisaoIC = new Tema("Conceitos básicos (Revisão IC)"));
 		oac.addTema(new Tema("Organização Básica de Computadores"));
 		oac.addTema(new Tema("Linguagem de Descrição de Hardware"));
 		oac.addTema(new Tema("Circuitos Combinacionais"));
 		oac.addTema(new Tema("Circuitos Sequenciais"));
 		oac.addTema(new Tema("Arquitetura do Conjunto de Instruções"));
 		oac.addTema(new Tema("Organização e Arquitetura Básicas de Computadores"));
-		oac.addTema(new Tema("Exercícios"));
+		oac.addTema(temaOacExercicios = new Tema("Exercícios"));
 		dao.persist(oac);
 
 		this.logica = new Disciplina("Lógica Matemática");
@@ -82,8 +82,8 @@ public class Global extends GlobalSettings {
 		logica.addTema(new Tema("Lógica de Predicados"));
 		logica.addTema(new Tema("Verificação através de Modelos"));
 		logica.addTema(new Tema("Alloy"));
-		logica.addTema(new Tema("Listas"));
-		logica.addTema(new Tema("Projeto"));
+		logica.addTema(temaListasLogica = new Tema("Listas"));
+		logica.addTema(temaProjetoLogica = new Tema("Projeto"));
 		dao.persist(logica);
 
 		dao.flush();
@@ -106,10 +106,35 @@ public class Global extends GlobalSettings {
 	}
 
 	public void addDicas(){
-		MetaDica metaDicaOac = new MetaDica(oac, "user1", "Faca todos os exercicios extras");
+		//cria meta dica oac
+		MetaDica metaDicaOac = new MetaDica(oac, "user1", "Não falte as aulas, toda aula tem ponto extra!");
 		metaDicaOac.setConcordancias(5);
 		dao.persist(metaDicaOac);
 
+		dicaExerciciosOac = new DicaConselho("Os exercicios extras valem muitos pontos, nao deixe de fazer");
+		dicaExerciciosOac.setTema(temaOacExercicios);
+		temaOacExercicios.setDisciplina(oac);
+		dicaExerciciosOac.setUser("user5");
+		dicaExerciciosOac.addUsuarioQueVotou("user1");
+		dicaExerciciosOac.addUsuarioQueVotou("user2");
+
+		//adiciona pontos a dica
+		for (int i = 0; i < 20;i++){
+			dicaExerciciosOac.incrementaConcordancias();
+		}
+		for (int i = 0; i < 5;i++){
+			dicaExerciciosOac.incrementaDiscordancias();
+		}
+		dao.persist(dicaExerciciosOac);
+
+		dicaRevisaoIcOac = new DicaAssunto("Antes das aulas faça uma boa revisao de IC");
+		temaOacRevisaoIC.setDisciplina(oac);
+		dicaRevisaoIcOac.setTema(temaOacRevisaoIC);
+		dicaRevisaoIcOac.setUser("user4");
+		dicaRevisaoIcOac.addUsuarioQueVotou("user5");
+		dicaRevisaoIcOac.addUsuarioQueVotou("user1");
+		dicaRevisaoIcOac.incrementaConcordancias();
+		dicaRevisaoIcOac.incrementaConcordancias();
 
 		//cria meta dica em si
 		MetaDica metaDicaSi1 = new MetaDica(si1, "user2", "Seja autodidata! Procure por cursos online");
@@ -117,6 +142,7 @@ public class Global extends GlobalSettings {
 
 		dicaLabSi = new DicaConselho("Faça todo os labs, não deixe acumular");
 		temaMinitestesSi.setDisciplina(si1);
+		dicaLabSi.setTema(temaMinitestesSi);
 		dicaLabSi.setTema(temaMinitestesSi);
 		dicaLabSi.setUser("user1");
 		dicaLabSi.addUsuarioQueVotou("user2");
@@ -128,6 +154,7 @@ public class Global extends GlobalSettings {
 		dicaPlaySi = new DicaConselho("Comece a configurar o Play no primeiro dia de aula, pois dá muuuito trabalho");
 		temaPlaySi.setDisciplina(si1);
 		dicaPlaySi.setTema(temaPlaySi);
+		dicaPlaySi.setTema(temaPlaySi);
 		dicaPlaySi.setUser("user2");
 		dicaPlaySi.addUsuarioQueVotou("user5");
 		dicaPlaySi.addUsuarioQueVotou("user4");
@@ -136,14 +163,31 @@ public class Global extends GlobalSettings {
 		dao.persist(dicaPlaySi);
 
 
-		MetaDica metaDica2Oac = new MetaDica(oac, "user1", "Não falte nenhuma aula, toda aula tem pontos extras o/ ");
-		dao.persist(metaDica2Oac);
-
-		MetaDica metaDicaLogica = new MetaDica(logica, "user3", "Faça todas as listas de exercícios");
+		//cria meta dica logica
+		MetaDica metaDicaLogica = new MetaDica(logica, "user3", "Copie para o seu caderno tudo que o professor copiar no quadro, TUDO!");
 		dao.persist(metaDicaLogica);
 
-		MetaDica metaDica2Logica = new MetaDica(logica, "user3", "Tenha um bom grupo para o projeto!! Faça o projeto");
-		dao.persist(metaDica2Logica);
+		dicaListasLogica = new DicaConselho("Faça todas as listas possíveis");
+		temaListasLogica.setDisciplina(logica);
+		dicaListasLogica.setTema(temaListasLogica);
+		dicaListasLogica.setTema(temaListasLogica);
+		dicaListasLogica.setUser("user6");
+		dicaListasLogica.addUsuarioQueVotou("user3");
+		dicaListasLogica.addUsuarioQueVotou("user5");
+		dicaListasLogica.incrementaConcordancias();
+		dicaListasLogica.incrementaConcordancias();
+		dao.persist(dicaListasLogica);
+
+		dicaProjetoLogica = new DicaAssunto("Peça ajuda ao monitor responsável por seu grupo, começe o projeto assim que for lançado!");
+		temaProjetoLogica.setDisciplina(logica);
+		dicaProjetoLogica.setTema(temaProjetoLogica);
+		dicaProjetoLogica.setTema(temaProjetoLogica);
+		dicaProjetoLogica.setUser("user4");
+		dicaProjetoLogica.addUsuarioQueVotou("user1");
+		dicaProjetoLogica.addUsuarioQueVotou("user2");
+		dicaProjetoLogica.incrementaConcordancias();
+		dicaProjetoLogica.incrementaConcordancias();
+		dao.persist(dicaProjetoLogica);
 
 		dao.flush();
 
