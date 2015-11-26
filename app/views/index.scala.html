@@ -66,7 +66,9 @@
 							}
 							@for(dica <- dicas){
 								<div class="uk-panel uk-panel-box dica">
+									<p>@dica.getDisciplina()</p>
 									@if(dica.getTipo().equals("DicaDisciplina")){
+
 										<p>Disciplinas importantes:</p><p class="normal-font">@dica.getTexto()</p>
 										<p>Razão:</p><p class="normal-font">@dica.getInstanciaDisciplina.getRazao()</p>
 									}
