@@ -27,7 +27,7 @@ public abstract class Dica implements Comparable<Dica>{
 	private long id;
 	
 	@ManyToOne
-	private Tema tema;
+	private Tema tema = null;
 	
 	@Column
 	private String username;
@@ -45,10 +45,10 @@ public abstract class Dica implements Comparable<Dica>{
 	private List<MetaDica> metadicas = new ArrayList<>();
 	
 	@Column
-	private int concordancias;
+	private int concordancias = 0;
 	
 	@Column
-	private int discordancias;
+	private int discordancias = 0;
 	
 	@Column
 	private int flag;
@@ -114,6 +114,10 @@ public abstract class Dica implements Comparable<Dica>{
 			return "0";
 		}
 		return String.format("%.2f", this.getConcordancias()/((float) soma));
+	}
+
+	public String getDisciplina(){
+		return getTema().getDisciplina().toString();
 	}
 	
 	public int getFlag() {
