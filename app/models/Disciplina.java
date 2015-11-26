@@ -83,4 +83,9 @@ public class Disciplina {
 	public void addMetaDica(MetaDica metaDica) {
 		this.metaDicas.add(metaDica);
 	}
+
+	@Override
+	public String toString(){
+		return getNome();
+	}
 }
