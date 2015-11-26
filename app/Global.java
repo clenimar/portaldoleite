@@ -14,8 +14,8 @@ public class Global extends GlobalSettings {
 	private static GenericDAOImpl dao = new GenericDAOImpl();
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
-	private Tema temaMinitestesSi, temaPlaySi, temaOacRevisaoIC, temaOacExercicios, temaListasLogica, temaProjetoLogica;
-	private Dica dicaLabSi, dicaPlaySi, dicaRevisaoIcOac, dicaExerciciosOac, dicaListasLogica, dicaProjetoLogica;
+	private Tema temaMaterialSi, temaMaterialOac, temaMinitestesSi, temaPlaySi, temaOacRevisaoIC, temaOacExercicios, temaListasLogica, temaProjetoLogica;
+	private Dica dicaMaterialSi, dicaMaterialOac, dicaLabSi, dicaPlaySi, dicaRevisaoIcOac, dicaExerciciosOac, dicaListasLogica, dicaProjetoLogica;
 
 	//Disciplinas defaut
 	private Disciplina si1, oac, logica;
@@ -59,7 +59,7 @@ public class Global extends GlobalSettings {
 		si1.addTema(new Tema("Arquitetura"));
 		si1.addTema(temaPlaySi = new Tema("Play"));
 		si1.addTema(new Tema("JavaScript"));
-		si1.addTema(new Tema("HTML / CSS / Bootstrap"));
+		si1.addTema(temaMaterialSi = new Tema("HTML / CSS / Bootstrap"));
 		si1.addTema(new Tema("Heroku"));
 		si1.addTema(new Tema("Labs"));
 		si1.addTema(temaMinitestesSi = new Tema("Minitestes"));
@@ -68,7 +68,7 @@ public class Global extends GlobalSettings {
 
 		this.oac = new Disciplina("OAC");
 		oac.addTema(temaOacRevisaoIC = new Tema("Conceitos básicos (Revisão IC)"));
-		oac.addTema(new Tema("Organização Básica de Computadores"));
+		oac.addTema(temaMaterialOac = new Tema("Material"));
 		oac.addTema(new Tema("Linguagem de Descrição de Hardware"));
 		oac.addTema(new Tema("Circuitos Combinacionais"));
 		oac.addTema(new Tema("Circuitos Sequenciais"));
@@ -136,9 +136,45 @@ public class Global extends GlobalSettings {
 		dicaRevisaoIcOac.incrementaConcordancias();
 		dicaRevisaoIcOac.incrementaConcordancias();
 
+		dicaMaterialOac = new DicaMaterial("http://www.dsc.ufcg.edu.br/~joseana/OAC120151.html");
+		temaMaterialOac.setDisciplina(si1);
+		dicaMaterialOac.setTema(temaMaterialOac);
+		dicaMaterialOac.setUser("user1");
+		dicaMaterialOac.addUsuarioQueVotou("user5");
+		dicaMaterialOac.addUsuarioQueVotou("user1");
+		dicaMaterialOac.incrementaConcordancias();
+		dicaMaterialSi.incrementaConcordancias();
+		//adiciona pontos a dica
+		for (int i = 0; i < 20;i++){
+			dicaMaterialOac.incrementaConcordancias();
+		}
+		for (int i = 0; i < 5;i++){
+			dicaMaterialOac.incrementaDiscordancias();
+		}
+		dao.persist(dicaMaterialOac);
+
+
 		//cria meta dica em si
 		MetaDica metaDicaSi1 = new MetaDica(si1, "user2", "Seja autodidata! Procure por cursos online");
 		dao.persist(metaDicaSi1);
+
+		dicaMaterialSi = new DicaMaterial("https://www.codecademy.com");
+		temaMaterialSi.setDisciplina(si1);
+		dicaMaterialSi.setTema(temaMaterialSi);
+		dicaMaterialSi.setUser("user1");
+		dicaMaterialSi.addUsuarioQueVotou("user5");
+		dicaMaterialSi.addUsuarioQueVotou("user1");
+		dicaMaterialSi.incrementaConcordancias();
+		dicaMaterialSi.incrementaConcordancias();
+		//adiciona pontos a dica
+		for (int i = 0; i < 20;i++){
+			dicaMaterialSi.incrementaConcordancias();
+		}
+		for (int i = 0; i < 5;i++){
+			dicaMaterialSi.incrementaDiscordancias();
+		}
+		dao.persist(dicaMaterialSi);
+
 
 		dicaLabSi = new DicaConselho("Faça todo os labs, não deixe acumular");
 		temaMinitestesSi.setDisciplina(si1);
