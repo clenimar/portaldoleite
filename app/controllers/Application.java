@@ -26,7 +26,7 @@ public class Application extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result index() {
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
-		DicaAssunto dica = new DicaAssunto("Olar");
+		linhaDoTempo.setMetodoDeExibicao(new ExibicaoMaisNegativos());
         return ok(views.html.index.render(disciplinas, linhaDoTempo.getLinhaDoTempo()));
     }
 	
@@ -86,7 +86,7 @@ public class Application extends Controller {
 		
 		Map<String,String> formMap = filledForm.data();
 		
-		//long idTema = Long.parseLong(formMap.get("idTema"));
+		//idTema = Long.parseLong(formMap.get("idTema"));
 		
 		Tema tema = dao.findByEntityId(Tema.class, idTema);
 		String userName = session("username");

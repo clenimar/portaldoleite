@@ -67,18 +67,28 @@
 							@for(dica <- dicas){
 								<div class="uk-panel uk-panel-box dica">
 									@if(dica.getTipo().equals("DicaDisciplina")){
+										<p>Disciplina:</p><p class="normal-font">@dica.getInstanciaDisciplina().getNomeDisciplina()</p>
+										<p>Tema:</p><p class="normal-font">@dica.getTema().getName()</p>
 										<p>Disciplinas importantes:</p><p class="normal-font">@dica.getTexto()</p>
 										<p>Razão:</p><p class="normal-font">@dica.getInstanciaDisciplina.getRazao()</p>
 									}
 									@if(dica.getTipo().equals("DicaMaterial")){
+										@*<p>Disciplina:</p><p class="normal-font">@dica.getTema().getDisciplina().getNome()</p>*@
+										<p>Tema:</p><p class="normal-font">@dica.getTema().getName()</p>
 										<p>Link para material útil:</p><a href="@dica.getTexto()">@dica.getTexto()</a>
 									}
 									@if(dica.getTipo().equals("DicaConselho")){
+										@*<p>Disciplina:</p><p class="normal-font">@dica.getTema().getDisciplina().getNome()</p>*@
+										<p>Tema:</p><p class="normal-font">@dica.getTema().getName()</p>
 										<p>Conselho:</p><p class="normal-font">@dica.getTexto()</p>
 									}
 									@if(dica.getTipo().equals("DicaAssunto")){
+										@*<p>Disciplina:</p><p class="normal-font">@dica.getTema().getDisciplina().getNome()</p>*@
+										<p>Tema:</p><p class="normal-font">@dica.getTema().getName()</p>
 										<p>Assuntos importantes:</p><p class="normal-font">@dica.getTexto()</p>
 									}
+								<p>Concordâncias: @dica.getConcordancias</p>
+								<p>Discordâncias: @dica.getDiscordancias</p>
 								</div>
 								<hr class="uk-article-divider">
 							}
