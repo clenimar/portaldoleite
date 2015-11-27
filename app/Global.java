@@ -14,8 +14,8 @@ public class Global extends GlobalSettings {
 	private static GenericDAOImpl dao = new GenericDAOImpl();
 	private List<Disciplina> disciplinas = new ArrayList<>();
 
-	private Tema temaMinitestesSi, temaPlaySi, temaOacRevisaoIC, temaOacExercicios, temaListasLogica, temaProjetoLogica;
-	private Dica dicaLabSi, dicaPlaySi, dicaRevisaoIcOac, dicaExerciciosOac, dicaListasLogica, dicaProjetoLogica;
+	private Tema temaMaterialSi, temaMinitestesSi, temaPlaySi, temaOacRevisaoIC, temaOacExercicios, temaListasLogica, temaProjetoLogica;
+	private Dica dicaMaterialSi, dicaLabSi, dicaPlaySi, dicaRevisaoIcOac, dicaExerciciosOac, dicaListasLogica, dicaProjetoLogica;
 
 	//Disciplinas defaut
 	private Disciplina si1, oac, logica;
@@ -62,6 +62,7 @@ public class Global extends GlobalSettings {
 		si1.addTema(new Tema("HTML / CSS / Bootstrap"));
 		si1.addTema(new Tema("Heroku"));
 		si1.addTema(new Tema("Labs"));
+		si1.addTema(temaMaterialSi = new Tema("Material"));
 		si1.addTema(temaMinitestesSi = new Tema("Minitestes"));
 		si1.addTema(new Tema("Projeto"));
 		dao.persist(si1);
@@ -151,7 +152,6 @@ public class Global extends GlobalSettings {
 		dicaLabSi = new DicaConselho("Faça todo os labs, não deixe acumular");
 		temaMinitestesSi.setDisciplina(si1);
 		dicaLabSi.setTema(temaMinitestesSi);
-		dicaLabSi.setTema(temaMinitestesSi);
 		dicaLabSi.setUser("user1");
 		dicaLabSi.addUsuarioQueVotou("user2");
 		dicaLabSi.addUsuarioQueVotou("user3");
@@ -162,13 +162,22 @@ public class Global extends GlobalSettings {
 		dicaPlaySi = new DicaConselho("Comece a configurar o Play no primeiro dia de aula, pois dá muuuito trabalho");
 		temaPlaySi.setDisciplina(si1);
 		dicaPlaySi.setTema(temaPlaySi);
-		dicaPlaySi.setTema(temaPlaySi);
 		dicaPlaySi.setUser("user2");
 		dicaPlaySi.addUsuarioQueVotou("user5");
 		dicaPlaySi.addUsuarioQueVotou("user4");
 		dicaPlaySi.incrementaConcordancias();
 		dicaPlaySi.incrementaConcordancias();
 		dao.persist(dicaPlaySi);
+
+		dicaMaterialSi = new DicaMaterial("http://www.wthreex.com/rup/process/workflow/ana_desi/co_swarch.htm");
+		temaMaterialSi.setDisciplina(si1);
+		dicaMaterialSi.setTema(temaMaterialSi);
+		dicaMaterialSi.setUser("user2");
+		dicaMaterialSi.addUsuarioQueVotou("user5");
+		dicaMaterialSi.addUsuarioQueVotou("user4");
+		dicaMaterialSi.incrementaConcordancias();
+		dicaMaterialSi.incrementaConcordancias();
+		dao.persist(dicaMaterialSi);
 
 
 		//cria meta dica logica
