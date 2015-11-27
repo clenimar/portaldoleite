@@ -1,0 +1,7 @@
+
+Refatoramento
+
+* Criação da classe LinhaDoTempo: quem gerencia as dicas (information expert);
+* Criação da interface MetodoDeExibicao que gerencia a forma que a LinhaDoTempo exibe as dicas (padrão Strategy - evita acoplamento);
+* Dica passa a saber a qual disciplina pertence (information expert);
+* Mudanças e simplificações de alguns códigos confusos.
