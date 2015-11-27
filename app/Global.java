@@ -125,6 +125,14 @@ public class Global extends GlobalSettings {
 		for (int i = 0; i < 5;i++){
 			dicaExerciciosOac.incrementaDiscordancias();
 		}
+
+		//adiciona pontos a dica
+		for (int i = 0; i < 5;i++){
+			dicaExerciciosOac.incrementaConcordancias();
+		}
+		for (int i = 0; i < 25;i++){
+			dicaExerciciosOac.incrementaDiscordancias();
+		}
 		dao.persist(dicaExerciciosOac);
 
 		dicaRevisaoIcOac = new DicaAssunto("Antes das aulas faça uma boa revisao de IC");
