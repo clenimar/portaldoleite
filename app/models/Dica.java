@@ -58,6 +58,7 @@ public abstract class Dica implements Comparable<Dica>{
 	
 	@Transient
 	private DicaDisciplina instanciaDisciplina;
+
 	
 	public Dica(){}
 
@@ -166,6 +167,9 @@ public abstract class Dica implements Comparable<Dica>{
 	}
 	
 	public DicaDisciplina getInstanciaDisciplina() {
+		if (instanciaDisciplina == null)
+			checaTipoDica();
+		
 		return instanciaDisciplina;
 	}
 	

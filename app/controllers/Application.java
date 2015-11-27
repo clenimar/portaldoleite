@@ -6,14 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Lists;
-import models.Dica;
-import models.DicaAssunto;
-import models.DicaConselho;
-import models.DicaDisciplina;
-import models.DicaMaterial;
-import models.Disciplina;
-import models.MetaDica;
-import models.Tema;
+import models.*;
 import models.dao.GenericDAOImpl;
 import org.apache.commons.collections.ListUtils;
 import play.Logger;
@@ -27,13 +20,14 @@ import play.mvc.Security;
 public class Application extends Controller {
 	private static final int MAX_DENUNCIAS = 3;
 	private static GenericDAOImpl dao = new GenericDAOImpl();
+	private static LinhaDoTempo linhaDoTempo = new LinhaDoTempo();
 
 	@Transactional
 	@Security.Authenticated(Secured.class)
     public static Result index() {
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
 		DicaAssunto dica = new DicaAssunto("Olar");
-        return ok(views.html.index.render(disciplinas, getTimeline()));
+        return ok(views.html.index.render(disciplinas, linhaDoTempo.getLinhaDoTempo()));
     }
 	
 	@Transactional
@@ -398,9 +392,4 @@ public class Application extends Controller {
 		return redirect(routes.Application.disciplina(metaDica.getDisciplina().getId()));
 	}
 
-	@Transactional
-	public static List<Dica> getTimeline() {
-		List<Dica> timeline = dao.findAllByClassName("Dica");
-		return Lists.reverse(timeline);
-	}
 }
