@@ -14,6 +14,10 @@ public class DicaAssunto extends Dica{
 	public DicaAssunto(String assunto) {
 		this.assunto = assunto;
 	}
+	public DicaAssunto(String assunto, Tema tema) {
+		this.assunto = assunto;
+		setTema(tema);
+	}
 
 	public String getAssunto() {
 		return assunto;

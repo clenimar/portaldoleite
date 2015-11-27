@@ -62,6 +62,9 @@ public abstract class Dica implements Comparable<Dica>{
 	
 	public Dica(){}
 
+	public Dica(Tema tema){
+		setTema(tema);
+	}
 	public Tema getTema() {
 		return tema;
 	}

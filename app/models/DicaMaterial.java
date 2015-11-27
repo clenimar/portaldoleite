@@ -15,6 +15,11 @@ public class DicaMaterial extends Dica{
 		this.url = url;
 	}
 
+	public DicaMaterial(String url, Tema tema) {
+		this.url = url;
+		setTema(tema);
+	}
+
 	public String getUrl() {
 		return url;
 	}

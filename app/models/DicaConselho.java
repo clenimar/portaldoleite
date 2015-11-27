@@ -14,6 +14,10 @@ public class DicaConselho extends Dica{
 	public DicaConselho(String conselho) {
 		this.conselho = conselho;
 	}
+	public DicaConselho(String conselho, Tema tema) {
+		this.conselho = conselho;
+		setTema(tema);
+	}
 
 	public String getConselho() {
 		return conselho;

@@ -19,6 +19,12 @@ public class DicaDisciplina extends Dica{
 		this.razao = razao;
 	}
 
+	public DicaDisciplina(String nomeDisciplina, String razao, Tema tema) {
+		this.nomeDisciplina = nomeDisciplina;
+		this.razao = razao;
+		setTema(tema);
+	}
+
 	public String getNomeDisciplina() {
 		return nomeDisciplina;
 	}
