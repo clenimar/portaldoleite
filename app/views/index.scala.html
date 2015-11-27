@@ -56,36 +56,37 @@
 							<p>Escolha uma disciplina ou tema ao lado para acessar os leites.</p>
             			</div>
 
-
-
-
-
 						<div class="uk-overflow-container">
 							@if(dicas.isEmpty) {
 								<p>Sem dicas recentes para mostrar.</p>
+							} else {
+								Ordenar últimas dicas por:
+								<button id="recentes" class="uk-button uk-button-small">Mais recentes</button>
+								<button id="positivos" class="uk-button uk-button-small">Mais votos positivos</button>
+								<button id="negativos" class="uk-button uk-button-small">Mais votos negativos</button>
 							}
 							@for(dica <- dicas){
 								<div class="uk-panel uk-panel-box dica">
 									@if(dica.getTipo().equals("DicaDisciplina")){
-										<p>Disciplina:</p><p class="normal-font">@dica.getInstanciaDisciplina().getNomeDisciplina()</p>
-										<p>Tema:</p><p class="normal-font">@dica.getTema().getName()</p>
-										<p>Disciplinas importantes:</p><p class="normal-font">@dica.getTexto()</p>
-										<p>Razão:</p><p class="normal-font">@dica.getInstanciaDisciplina.getRazao()</p>
+										<p>Disciplina: @dica.getInstanciaDisciplina().getNomeDisciplina()</p>
+										<p>Tema: @dica.getTema().getName()</p>
+										<p>Disciplinas importantes: @dica.getTexto()</p>
+										<p>Razão: @dica.getInstanciaDisciplina.getRazao()</p>
 									}
 									@if(dica.getTipo().equals("DicaMaterial")){
 										@*<p>Disciplina:</p><p class="normal-font">@dica.getTema().getDisciplina().getNome()</p>*@
-										<p>Tema:</p><p class="normal-font">@dica.getTema().getName()</p>
-										<p>Link para material útil:</p><a href="@dica.getTexto()">@dica.getTexto()</a>
+										<p>Tema: @dica.getTema().getName()</p>
+										<p>Link para material útil:<a href="@dica.getTexto()">@dica.getTexto()</a></p>
 									}
 									@if(dica.getTipo().equals("DicaConselho")){
 										@*<p>Disciplina:</p><p class="normal-font">@dica.getTema().getDisciplina().getNome()</p>*@
-										<p>Tema:</p><p class="normal-font">@dica.getTema().getName()</p>
-										<p>Conselho:</p><p class="normal-font">@dica.getTexto()</p>
+										<p>Tema: @dica.getTema().getName()</p>
+										<p>Conselho: @dica.getTexto()</p>
 									}
 									@if(dica.getTipo().equals("DicaAssunto")){
 										@*<p>Disciplina:</p><p class="normal-font">@dica.getTema().getDisciplina().getNome()</p>*@
-										<p>Tema:</p><p class="normal-font">@dica.getTema().getName()</p>
-										<p>Assuntos importantes:</p><p class="normal-font">@dica.getTexto()</p>
+										<p>Tema: @dica.getTema().getName()</p>
+										<p>Assuntos importantes: @dica.getTexto()</p>
 									}
 								<p>Concordâncias: @dica.getConcordancias</p>
 								<p>Discordâncias: @dica.getDiscordancias</p>
@@ -93,6 +94,41 @@
 								<hr class="uk-article-divider">
 							}
 						</div>
+
+						<script>
+							$("#recentes").click(function() {
+							$.ajax({
+								type:"POST",
+								url: "/ordena/recentes",
+								data: "dummydata",
+								success: function(result) {
+									window.location = '/';
+								}
+							});
+							});
+
+							$("#positivos").click(function() {
+							$.ajax({
+								type:"POST",
+								url: "/ordena/positivos",
+								data: "dummydata",
+								success: function(result) {
+									window.location = '/';
+								}
+							});
+							});
+
+							$("#negativos").click(function() {
+							$.ajax({
+								type:"POST",
+								url: "/ordena/negativos",
+								data: "dummydata",
+								success: function(result) {
+									window.location = '/';
+								}
+							});
+							});
+						</script>
 
 
 

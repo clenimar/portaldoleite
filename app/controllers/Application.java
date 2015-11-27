@@ -26,7 +26,6 @@ public class Application extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result index() {
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
-		linhaDoTempo.setMetodoDeExibicao(new ExibicaoMaisNegativos());
         return ok(views.html.index.render(disciplinas, linhaDoTempo.getLinhaDoTempo()));
     }
 	
@@ -391,5 +390,24 @@ public class Application extends Controller {
 		
 		return redirect(routes.Application.disciplina(metaDica.getDisciplina().getId()));
 	}
+
+	@Transactional
+	public static Result ordenaPorData() {
+		linhaDoTempo.setMetodoDeExibicao(new ExibicaoMaisRecentes());
+		return index();
+	}
+
+	@Transactional
+	public static  Result ordenaPorVotosPositivos() {
+		linhaDoTempo.setMetodoDeExibicao(new ExibicaoMaisPositivos());
+		return index();
+	}
+
+	@Transactional
+	public static Result ordenaPorVotosNegativos() {
+		linhaDoTempo.setMetodoDeExibicao(new ExibicaoMaisNegativos());
+		return index();
+	}
+
 
 }
